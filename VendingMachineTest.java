@@ -53,4 +53,43 @@ public class VendingMachineTest {
             machine.addItem(item, "E");
         });
     }
+
+    @Test 
+    public void testRemoveItem() {
+        VendingMachine machine = new VendingMachine();
+        VendingMachineItem item = new VendingMachineItem("Coke", 2.5);
+        machine.addItem(item, "A");
+
+        VendingMachineItem removedItem = machine.removeItem("A");
+
+        assertEquals(item, removedItem);
+        assertNull(machine.getItem("A"));
+    }
+
+    @Test 
+    public void testRemoveItemFromEmptySlotThrowsException() {
+        VendingMachine machine = new VendingMachine();
+
+        assertThrows(VendingMachineException.class, () -> {
+            machine.removeItem("A");
+        });
+    }
+
+    @Test 
+    public void testRemoveItemWithInvalidCodeThrowsException() {
+        VendingMachine machine = new VendingMachine();
+
+        assertThrows(VendingMachineException.class, () -> {
+            machine.removeItem("E");
+        });
+    }
+
+    @Test 
+    public void testInsertMoney() {
+        VendingMachine machine = new VendingMachine();
+
+        machine.insertMoney(5.00);
+
+        assertEquals(5.00, machine.getBalance());
+    }
 }
