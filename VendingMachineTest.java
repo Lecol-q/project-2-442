@@ -92,4 +92,13 @@ public class VendingMachineTest {
 
         assertEquals(5.00, machine.getBalance());
     }
+
+    @Test 
+    public void testInsertNegativeMoneyThrowsException() {
+        VendingMachine machine = new VendingMachine();
+
+        assertThrows(VendingMachineException.class, () -> {
+            machine.insertMoney(-1);
+        });
+    }
 }
