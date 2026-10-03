@@ -11,5 +11,46 @@ public class VendingMachineTest {
         assertEquals(0, machine.getBalance());
     }
     
-    
+    @Test 
+    public void testInitialSlotsAreEmpty() {
+        VendingMachine machine = new VendingMachine();
+
+        assertNull(machine.getItem("A"));
+        assertNull(machine.getItem("B"));
+        assertNull(machine.getItem("C"));
+        assertNull(machine.getItem("D"));
+    }
+
+    @Test 
+    public void addItem() {
+        VendingMachine machine = new VendingMachine();
+        VendingMachineItem item = new VendingMachineItem("Coke", 2.5);
+
+        machine.addItem(item, "A");
+
+        assertEquals(item, machine.getItem("A"));
+    }
+
+    @Test 
+    public void testAddItemToOccupiedSlotThrowsException() {
+        VendingMachine machine = new VendingMachine();
+        VendingMachineItem firstItem = new VendingMachineItem("Coke", 2.5);
+        VendingMachineItem secondItem = new VendingMachineItem("Pepsi", 2);
+
+        machine.addItem(firstItem, "A");
+
+        assertThrows(VendingMachineException.class, () -> {
+            machine.addItem(secondItem, "A");
+        });
+    }
+
+    @Test 
+    public void testAddItemWithInvalidCodeThrowsException() {
+        VendingMachine machine = new VendingMachine();
+        VendingMachineItem item = new VendingMachineItem("Coke", 2.5);
+
+        assertThrows(VendingMachineException.class, () -> {
+            machine.addItem(item, "E");
+        });
+    }
 }
