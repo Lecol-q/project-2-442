@@ -195,7 +195,7 @@ public class VendingMachine {
 		VendingMachineItem item = getItem(code);
 		if ((item != null) && (this.balance >= item.getPrice())) {
 			removeItem(code);
-			this.balance -= item.getPrice();
+			this.balance += item.getPrice();
 			returnCode = true;
 		}
 		return returnCode;
